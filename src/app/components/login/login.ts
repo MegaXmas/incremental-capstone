@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.css'
 })
 
-export class Login implements OnInit {
+export class LoginComponent implements OnInit {
   showPassword = false;
   adminLoginForm!: FormGroup;
 

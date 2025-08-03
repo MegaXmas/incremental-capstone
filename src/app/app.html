@@ -1,13 +1,6 @@
-<div>
-    <header>
-      <h1>My Application</h1>
-    </header>
-    
-    <main>
-      <!-- <app-client-creation></app-client-creation> -->
-       <app-login></app-login>
-    </main>
-    
-    <footer>
-    </footer>
-  </div>
+<!-- Main application template -->
+<app-header></app-header>
+<main>
+  <router-outlet></router-outlet>
+  <app-login></app-login>
+</main>
