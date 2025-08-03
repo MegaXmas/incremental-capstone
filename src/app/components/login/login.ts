@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Signal } from "@angular/core";
-import { Injectable } from "@angular/core";
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,19 +12,22 @@ import { CommonModule } from '@angular/common';
 
 export class Login implements OnInit {
   showPassword = false;
+  adminLoginForm!: FormGroup;
+
 
   constructor(private fb: FormBuilder) {}
-
-  adminLoginForm = this.fb.group({
-    adminUsername: ['', [Validators.required, Validators.minLength(2)]],
-    adminPassword: ['', [Validators.required, Validators.pattern("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}")]]
-  });
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
   ngOnInit() {
+
+    this.adminLoginForm = this.fb.group({
+      adminUsername: ['', [Validators.required, Validators.minLength(2)]],
+      adminPassword: ['', [Validators.required, Validators.pattern("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}")]]
+  });
+
     console.log('Initial form state:', {
       dirty: this.adminLoginForm.dirty,
       pristine: this.adminLoginForm.pristine,

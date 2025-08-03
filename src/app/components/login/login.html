@@ -28,7 +28,7 @@
         <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="adminPassword" formControlName="adminPassword" required 
         [class.invalid]="adminLoginForm.get('adminPassword')?.invalid && (adminLoginForm.get('adminPassword')?.dirty || adminLoginForm.get('adminPassword')?.touched)">
         <div *ngIf="adminLoginForm.get('adminPassword')?.invalid && adminLoginForm.get('adminPassword')?.touched" class="text-danger">
-            Password must contain the following: a capital (uppercase) letter, a lowercase letter, a number, a minium of 8 characters
+            Enter Admin Password
         </div>
       </div><br>
 
