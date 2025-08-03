@@ -19,6 +19,8 @@ export class Login implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+      console.log('Password visibility toggled. showPassword is now:', this.showPassword);
+      console.log('Input type should be:', this.showPassword ? 'text' : 'password');
   }
 
   ngOnInit() {
