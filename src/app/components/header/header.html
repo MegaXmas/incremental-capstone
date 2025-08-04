@@ -55,29 +55,32 @@
       <!-- User section on the right -->
       <div class="d-flex align-items-center">
         
-        <!-- Welcome message when logged in -->
+
+<!-- will implement the login button at a latere time once a databse is set up for admin authentication -->
+
+        Welcome message when logged in
         <span class="navbar-text me-3" *ngIf="isLoggedIn">
           <i class="fas fa-user-circle me-1"></i>
-          Welcome, <strong>{{ userName }}</strong>!
+          Welcome, <strong>{{ userName }}</strong>
         </span>
         
         <!-- Logout button (red) -->
-        <button 
+        <!-- <button 
           *ngIf="isLoggedIn" 
           class="btn btn-outline-danger btn-sm me-2" 
           (click)="onLogout()">
           <i class="fas fa-sign-out-alt me-1"></i>
           Logout
-        </button>
+        </button> -->
         
         <!-- Login button (green) -->
-        <button 
+        <!-- <button 
           *ngIf="!isLoggedIn" 
           class="btn btn-outline-success btn-sm" 
           (click)="onLogin()">
           <i class="fas fa-sign-in-alt me-1"></i>
           Login
-        </button>
+        </button> -->
         
       </div>
     </div>
