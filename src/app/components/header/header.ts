@@ -12,14 +12,26 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  // Properties to track user authentication state
+
+  /**
+   * Component properties
+   * isLoggedIn: boolean to track user login status
+   * userName: string to store the logged-in user's name
+   */
   isLoggedIn: boolean = false;
   userName: string = '';
 
-  // Inject Router service for navigation
+  
+  /**
+   * Constructor to inject dependencies
+   * @param router - Angular Router for navigation
+   */
   constructor(private router: Router) {}
 
-  // Initialize component - runs when component loads
+  /**
+   * Lifecycle hook that is called after component initialization
+   * Used to check login status when component starts
+   */
   ngOnInit(): void {
     // Check if user is logged in when component starts
     this.checkLoginStatus();
@@ -48,21 +60,21 @@ export class HeaderComponent implements OnInit {
    * Handle user logout
    * Clears user data and redirects to home
    */
-  onLogout(): void {
-    // Clear user authentication data
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userName');
+  // onLogout(): void {
+  //   // Clear user authentication data
+  //   localStorage.removeItem('authToken');
+  //   localStorage.removeItem('userName');
     
-    // Update component state
-    this.isLoggedIn = false;
-    this.userName = '';
+  //   // Update component state
+  //   this.isLoggedIn = false;
+  //   this.userName = '';
     
-    // Redirect to home page
-    this.router.navigate(['/home']);
+  //   // Redirect to home page
+  //   this.router.navigate(['/home']);
     
-    // Optional: Show success message
-    alert('You have been logged out successfully!');
-  }
+  //   // Optional: Show success message
+  //   alert('You have been logged out successfully!');
+  // }
 
   /**
    * Handle login button click
@@ -72,4 +84,34 @@ export class HeaderComponent implements OnInit {
     // Navigate to login page
     this.router.navigate(['/login']);
   }
+
+
+  /**
+   *Dropdown menu state
+   */
+  isDropdownOpen = false;
+
+  /**
+   * Toggle the dropdown menu visibility
+   */
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  /**
+   * Handle logout button click
+   */
+  logout() {
+    // Handle logout logic
+    console.log('Logging out...');
+  }
+
+  /**
+   * Navigate to the profile page
+   */
+  goToProfile() {
+    // Navigate to profile
+    console.log('Going to profile...');
+  }
+
 }
