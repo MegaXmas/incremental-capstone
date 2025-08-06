@@ -47,32 +47,18 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/bookings" routerLinkActive="active">
-            <i class="fas fa-ticket-alt me-1"></i>My Bookings
+            <i class="fas fa-ticket-simple me-1"></i>My Bookings
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="admin" routerLinkActive="active">
+            <i class="fas fa-user-tie me-1"></i>Admin Dashboard
           </a>
         </li>
       </ul>
 
-      <div class="dropdown d-flex flex-row-reverse">
-        <span class="navbar-text me-3">
-          <i class="fas fa-cog me-1"></i>
-            <button class="btn btn-secondary dropdown-toggle" 
-                type="button" 
-                aria-expanded="false"
-                (click)="toggleDropdown()">
-                Admin Menu
-            </button>
-        </span>
-        
-        <!-- Dropdown menu -->
-        <ul class="dropdown-menu" 
-            [class.show]="isDropdownOpen">
-          <li><a class="p-2 dropdown-item" (click)="goToProfile()">Profile</a></li>
-          <li><a class="p-2 dropdown-item" href="#" routerLink="/admin/flights">Manage Flights</a></li>
-          <li><a class="p-2 dropdown-item" href="#" routerLink="/admin/airlines">Manage Airlines</a></li>
-          <li><hr class="p-2 dropdown-divider"></li>
-          <li><a class="p-2 dropdown-item" (click)="logout()">Logout</a></li>
-        </ul>
-      </div>
       
       <!-- User section on the right -->
       <!-- <div class="d-flex align-items-center"> -->
