@@ -1,11 +1,10 @@
-<div class="date-dropdown">
+    <div class="date-dropdown">
       <label [for]="id">{{ label }}</label>
       <div class="date-selectors">
         <select [id]="id + '-day'" 
                 class="form-control" 
                 [value]="selectedDay" 
-                (change)="onDayChange($event)"
-                [class.invalid]="isInvalid">
+                (change)="onDayChange($event)">
           <option value="">Day</option>
           <option *ngFor="let day of days" [value]="day">{{ day }}</option>
         </select>
@@ -13,8 +12,7 @@
         <select [id]="id + '-month'" 
                 class="form-control" 
                 [value]="selectedMonth" 
-                (change)="onMonthChange($event)"
-                [class.invalid]="isInvalid">
+                (change)="onMonthChange($event)">
           <option value="">Month</option>
           <option *ngFor="let month of months; let i = index" [value]="i + 1">{{ month }}</option>
         </select>
@@ -22,13 +20,9 @@
         <select [id]="id + '-year'" 
                 class="form-control" 
                 [value]="selectedYear" 
-                (change)="onYearChange($event)"
-                [class.invalid]="isInvalid">
+                (change)="onYearChange($event)">
           <option value="">Year</option>
           <option *ngFor="let year of years" [value]="year">{{ year }}</option>
         </select>
-      </div>
-      <div *ngIf="isInvalid && errorMessage" class="text-danger">
-        {{ errorMessage }}
       </div>
     </div>
