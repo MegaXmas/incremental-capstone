@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-flight-form',
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './flight-form.html',
   styleUrl: './flight-form.css'
 })
@@ -15,8 +15,8 @@ export class FlightFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.flightForm = this.fb.group({
       flightNumber: ['', Validators.required],
-      departure: ['', Validators.required],
-      arrival: ['', Validators.required],
+      flightOrigin: ['', Validators.required],
+      flightDestination: ['', Validators.required],
       date: ['', Validators.required],
       time: ['', Validators.required],
       price: ['', Validators.required ]

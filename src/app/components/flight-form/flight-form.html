@@ -1,3 +1,89 @@
 <div class="container">
   <h1 class="heading">Add/edit flight details</h1>
   <form class="form" [formGroup]="flightForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="flightNumber">Flight Number</label>
+      <input type="text" 
+             class="form-control" 
+             id="flightNumber" 
+             name="flightNumber" 
+             formControlName="flightNumber" 
+             required
+             [class.invalid]="flightForm.get('flightNumber')?.invalid && (flightForm.get('flightNumber')?.dirty || flightForm.get('flightNumber')?.touched)">
+      <div *ngIf="flightForm.get('flightNumber')?.invalid && flightForm.get('flightNumber')?.touched" 
+           class="text-danger">
+          Enter the Flight Number
+      </div>
+    </div><br>
+
+    <div class="form-group">
+      <label for="flightAirline">Airline</label>
+      <input type="text" 
+             class="form-control" 
+             id="flightAirline" 
+             name="flightAirline" 
+             formControlName="flightAirline" 
+             required
+             [class.invalid]="flightForm.get('flightAirline')?.invalid && (flightForm.get('flightAirline')?.dirty || flightForm.get('flightAirline')?.touched)">
+      <div *ngIf="flightForm.get('flightAirline')?.invalid && flightForm.get('flightAirline')?.touched" 
+           class="text-danger">
+          Enter the Airline for this flight
+      </div>
+    </div><br>
+
+    <div class="form-group">
+      <label for="flightOrigin">Flight Origin Airport</label>
+      <input type="text" 
+             class="form-control" 
+             id="flightOrigin" 
+             formControlName="flightOrigin" 
+             required
+             [class.invalid]="flightForm.get('flightOrigin')?.invalid && (flightForm.get('flightOrigin')?.dirty || flightForm.get('flightOrigin')?.touched)">
+      <div *ngIf="flightForm.get('flightOrigin')?.invalid && flightForm.get('flightOrigin')?.touched" 
+           class="text-danger">
+          Enter this flight's airport of origin
+      </div>
+    </div><br>
+
+    <div class="form-group">
+        <label for="flightDestination">Flight Destination Airport</label>
+        <input type="text" 
+               class="form-control" 
+               id="flightDestination" 
+               formControlName="flightDestination" 
+               required
+               [class.invalid]="flightForm.get('flightDestination')?.invalid && (flightForm.get('flightDestination')?.dirty || flightForm.get('flightDestination')?.touched)">
+        <div *ngIf="flightForm.get('flightDestination')?.invalid && flightForm.get('flightDestination')?.touched" 
+             class="text-danger">
+            Enter the destination airport for this flight
+    </div>
+    </div><br>
+
+    <div class="form-group">
+      <label for="flightDepartureDate">Flight Date</label>
+      <input type="date" 
+             class="form-control" 
+             id="flightDepartureDate" 
+             formControlName="flightDepartureDate" 
+             required
+             [class.invalid]="flightForm.get('flightDepartureDate')?.invalid && (flightForm.get('flightDepartureDate')?.dirty || flightForm.get('flightDepartureDate')?.touched)">
+      <div *ngIf="flightForm.get('flightDepartureDate')?.invalid && flightForm.get('flightDepartureDate')?.touched" 
+           class="text-danger">
+          Enter the date of this flight's departure
+      </div>
+    </div><br>
+
+    <div class="form-group">
+      <label for="flightDepartureTime">Flight Time</label>
+      <input type="time" 
+             class="form-control" 
+             id="flightDepartureTime" 
+             formControlName="flightDepartureTime" 
+             required
+             [class.invalid]="flightForm.get('flightDepartureTime')?.invalid && (flightForm.get('flightDepartureTime')?.dirty || flightForm.get('flightDepartureTime')?.touched)">
+      <div *ngIf="flightForm.get('flightDepartureTime')?.invalid && flightForm.get('flightDepartureTime')?.touched" 
+           class="text-danger">
+          Enter the time of this flight's departure
+      </div>
+    </div><br>
