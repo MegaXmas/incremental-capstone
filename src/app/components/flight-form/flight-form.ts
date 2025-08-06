@@ -10,25 +10,29 @@ import { CommonModule } from '@angular/common';
   styleUrl: './flight-form.css'
 })
 export class FlightFormComponent implements OnInit {
-  flightForm: FormGroup;
+  flightForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
     this.flightForm = this.fb.group({
-      flightNumber: ['', Validators.required],
-      flightAirline: ['', Validators.required],
-      flightOrigin: ['', Validators.required],
-      flightDestination: ['', Validators.required],
+      flightNumber: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+      flightAirline: ['', [Validators.required, Validators.minLength(2)]],
+      flightOrigin: ['', [Validators.required, Validators.minLength(2)]],
+      flightDestination: ['', [Validators.required, Validators.minLength(2)]],
       flightDepartureDate: ['', Validators.required],
-      flightArrivalDate: ['', Validators.required],      
-      flightDepartureTime: ['', Validators.required],
+      flightArrivalDate: ['', Validators.required],
+      flightDepatureTime: ['', Validators.required],
       flightArrivalTime: ['', Validators.required],
-      flightTravelTime: ['', Validators.required],
-      flightPrice: ['', Validators.required ]
+      flightTravelTime: ['', [Validators.required, Validators.min(1)]],
+      flightPrice: ['', [Validators.required, Validators.min(0)]],
     });
-  }
 
-  ngOnInit(): void {
-    // Initialization logic if needed
+    console.log('Initial form state:', {
+      dirty: this.flightForm.dirty,
+      pristine: this.flightForm.pristine,
+      valid: this.flightForm.valid
+    });
   }
 
   onSubmit(): void {
