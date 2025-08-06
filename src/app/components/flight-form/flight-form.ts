@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DateDropdownComponent } from '../shared/date-dropdown/date-dropdown';
+import { TimeDropdownComponent } from '../shared/time-dropdown/time-dropdown';
+import { DurationDropdownComponent } from '../shared/duration-dropdown/duration-dropdown';
 
 @Component({
   selector: 'app-flight-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    DateDropdownComponent,
+    TimeDropdownComponent, 
+    DurationDropdownComponent
+  ],
   templateUrl: './flight-form.html',
   styleUrl: './flight-form.css'
 })
 export class FlightFormComponent implements OnInit {
   flightForm!: FormGroup;
+  isInvalid: boolean = false;
 
   constructor(private fb: FormBuilder) {}
 
@@ -35,13 +45,21 @@ export class FlightFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    if (this.flightForm.valid) {
-      console.log('Flight details submitted:', this.flightForm.value);
-      // Handle form submission logic here
-    } else {
-      console.error('Form is invalid');
-    }
+isFieldInvalid(fieldName: string): boolean {
+    const field = this.flightForm.get(fieldName);
+    return (field?.invalid ?? false) && (field?.touched ?? false);
   }
 
+  onSubmit(): void {
+    if (this.flightForm.valid) {
+      console.log('Form submitted:', this.flightForm.value);
+      // Handle form submission here
+    } else {
+      console.log('Form is invalid');
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.flightForm.controls).forEach(key => {
+        this.flightForm.get(key)?.markAsTouched();
+      });
+    }
+  }
 }

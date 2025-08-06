@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './duration-dropdown.html',
   styleUrl: './duration-dropdown.css'
 })
-export class DurationDropdown {
+export class DurationDropdownComponent {
 
 }
