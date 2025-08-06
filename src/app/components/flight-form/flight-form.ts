@@ -15,11 +15,15 @@ export class FlightFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.flightForm = this.fb.group({
       flightNumber: ['', Validators.required],
+      flightAirline: ['', Validators.required],
       flightOrigin: ['', Validators.required],
       flightDestination: ['', Validators.required],
-      date: ['', Validators.required],
-      time: ['', Validators.required],
-      price: ['', Validators.required ]
+      flightDepartureDate: ['', Validators.required],
+      flightArrivalDate: ['', Validators.required],      
+      flightDepartureTime: ['', Validators.required],
+      flightArrivalTime: ['', Validators.required],
+      flightTravelTime: ['', Validators.required],
+      flightPrice: ['', Validators.required ]
     });
   }
 
