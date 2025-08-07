@@ -17,25 +17,30 @@ import { BaseFormControl } from '../base-form-control';
 
 export class DateDropdownComponent extends BaseFormControl {
 
+
   /**
    * Input properties for the date dropdown component.
    */
   @Input() label: string = 'Date';
+
 
   /**
    * The id for the date dropdown component.
    */
   @Input() id: string = 'date-dropdown';
 
+
   /**
    * Whether the date dropdown is required.
    */
   @Input() isInvalid: boolean = false;
 
+
   /**
    * Error message to display when the date is invalid.
    */
   @Input() errorMessage: string = 'Please select a valid date';
+
 
   /**
    * Selected day from the dropdown.
@@ -43,11 +48,13 @@ export class DateDropdownComponent extends BaseFormControl {
    */
   selectedDay: string = '';
 
+
   /**
    * Selected month from the dropdown.
    * This is a string representing the month (1-12).
    */
   selectedMonth: string = '';
+
 
   /**
    * Selected year from the dropdown.
@@ -55,10 +62,12 @@ export class DateDropdownComponent extends BaseFormControl {
    */
   selectedYear: string = '';
 
+
   /**
    * Array of days from 1 to 31. This will be updated dynamically based on the selected month and year.
    */
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+
 
   /**
    * Array of month names for the dropdown.
@@ -68,10 +77,12 @@ export class DateDropdownComponent extends BaseFormControl {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
+
   /**
    * Array of years starting from the current year to the next 10 years.
    */
   years: number[] = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+
 
   /**
    * @param event Event triggered when the day is changed.
@@ -83,6 +94,7 @@ export class DateDropdownComponent extends BaseFormControl {
     this.updateFormValue();
   }
 
+
   /**
    * @param event Event triggered when the month is changed.
    * Updates the selected month, recalculates the days in the selected month, and updates the form value.
@@ -93,6 +105,7 @@ export class DateDropdownComponent extends BaseFormControl {
     this.updateFormValue();
   }
 
+
   /**
    * @param event Event triggered when the year is changed.
    * Updates the selected year, recalculates the days in the selected month, and updates the form value.
@@ -102,6 +115,7 @@ export class DateDropdownComponent extends BaseFormControl {
     this.updateDaysForSelectedMonth();
     this.updateFormValue();
   }
+
 
   /**
    * Function to call when the value changes.
@@ -124,9 +138,10 @@ export class DateDropdownComponent extends BaseFormControl {
     }
   }
 
+
   /**
    * Method to update the value of the control and notify the parent form.
-   * @param newValue The new value to set in the control.
+   * @param formattedDate The formatted date string in 'YYYY-MM-DD' format.
    * If the selected day, month, and year are valid,
    * it formats the date as 'YYYY-MM-DD' and calls the base class method to update the value.
    * If any of the selected values are empty, it resets the value to an empty string
@@ -142,6 +157,7 @@ export class DateDropdownComponent extends BaseFormControl {
     }
   }
 
+  
   /**
    * Required implementation from base class
    * Writes a value to the control.
