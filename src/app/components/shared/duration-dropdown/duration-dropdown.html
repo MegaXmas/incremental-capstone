@@ -1,1 +1,24 @@
-<p>duration-dropdown works!</p>
+<div class="duration-dropdown">
+      <label [for]="id">{{ label }}</label>
+      <div class="duration-selectors">
+        <select [id]="id + '-hours'" 
+                class="form-control" 
+                [value]="selectedHours" 
+                (change)="onHoursChange($event)">
+          <option value="">Hours</option>
+          @for (hour of hours; track hour) {
+            <option [value]="hour">{{ hour }}h</option>
+          }
+        </select>
+        
+        <select [id]="id + '-minutes'" 
+                class="form-control" 
+                [value]="selectedMinutes" 
+                (change)="onMinutesChange($event)">
+          <option value="">Minutes</option>
+          @for (minute of minutes; track minute) {
+            <option [value]="minute">{{ minute }}m</option>
+          }
+        </select>
+      </div>
+    </div>

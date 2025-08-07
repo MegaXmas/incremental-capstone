@@ -1,4 +1,4 @@
-    <div class="date-dropdown">
+<div class="date-dropdown">
       <label [for]="id">{{ label }}</label>
       <div class="date-selectors">
         <select [id]="id + '-day'" 
@@ -6,7 +6,9 @@
                 [value]="selectedDay" 
                 (change)="onDayChange($event)">
           <option value="">Day</option>
-          <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+          @for (day of days; track day) {
+            <option [value]="day">{{ day }}</option>
+          }
         </select>
         
         <select [id]="id + '-month'" 
@@ -14,7 +16,9 @@
                 [value]="selectedMonth" 
                 (change)="onMonthChange($event)">
           <option value="">Month</option>
-          <option *ngFor="let month of months; let i = index" [value]="i + 1">{{ month }}</option>
+          @for (month of months; track month; let i = $index) {
+            <option [value]="i + 1">{{ month }}</option>
+          }
         </select>
         
         <select [id]="id + '-year'" 
@@ -22,7 +26,9 @@
                 [value]="selectedYear" 
                 (change)="onYearChange($event)">
           <option value="">Year</option>
-          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          @for (year of years; track year) {
+            <option [value]="year">{{ year }}</option>
+          }
         </select>
       </div>
     </div>
