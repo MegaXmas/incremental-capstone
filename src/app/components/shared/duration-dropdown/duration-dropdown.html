@@ -5,7 +5,7 @@
                 class="form-control" 
                 [value]="selectedHours" 
                 (change)="onHoursChange($event)">
-          <option value="">Hours</option>
+          <option value="" disabled selected>Hours</option>
           @for (hour of hours; track hour) {
             <option [value]="hour">{{ hour }}h</option>
           }
@@ -15,7 +15,7 @@
                 class="form-control" 
                 [value]="selectedMinutes" 
                 (change)="onMinutesChange($event)">
-          <option value="">Minutes</option>
+          <option value="" disabled selected>Minutes</option>
           @for (minute of minutes; track minute) {
             <option [value]="minute">{{ minute }}m</option>
           }

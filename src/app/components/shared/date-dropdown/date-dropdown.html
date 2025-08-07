@@ -5,7 +5,7 @@
                 class="form-control" 
                 [value]="selectedDay" 
                 (change)="onDayChange($event)">
-          <option value="">Day</option>
+          <option value="" disabled selected>Day</option>
           @for (day of days; track day) {
             <option [value]="day">{{ day }}</option>
           }
@@ -15,7 +15,7 @@
                 class="form-control" 
                 [value]="selectedMonth" 
                 (change)="onMonthChange($event)">
-          <option value="">Month</option>
+          <option value="" disabled selected>Month</option>
           @for (month of months; track month; let i = $index) {
             <option [value]="i + 1">{{ month }}</option>
           }
@@ -25,7 +25,7 @@
                 class="form-control" 
                 [value]="selectedYear" 
                 (change)="onYearChange($event)">
-          <option value="">Year</option>
+          <option value="" disabled selected>Year</option>
           @for (year of years; track year) {
             <option [value]="year">{{ year }}</option>
           }
