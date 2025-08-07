@@ -9,7 +9,7 @@ export abstract class BaseFormControl implements ControlValueAccessor {
 
 
   /**
-   * @param disable
+   * @param disable A boolean indicating whether the control is disabled.
    */
   protected disabled = false;
 

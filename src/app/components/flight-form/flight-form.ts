@@ -16,7 +16,7 @@ import { DurationDropdownComponent } from '../shared/duration-dropdown/duration-
     DurationDropdownComponent
   ],
   templateUrl: './flight-form.html',
-  styleUrl: './flight-form.css'
+  styleUrls: ['./flight-form.css','../shared/form-styles.css'],
 })
 export class FlightFormComponent implements OnInit {
   flightForm!: FormGroup;
@@ -32,7 +32,7 @@ export class FlightFormComponent implements OnInit {
       flightDestination: ['', [Validators.required, Validators.minLength(2)]],
       flightDepartureDate: ['', Validators.required],
       flightArrivalDate: ['', Validators.required],
-      flightDepatureTime: ['', Validators.required],
+      flightDepartureTime: ['', Validators.required],
       flightArrivalTime: ['', Validators.required],
       flightTravelTime: ['', [Validators.required, Validators.min(1)]],
       flightPrice: ['', [Validators.required, Validators.min(0)]],

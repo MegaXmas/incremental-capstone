@@ -54,6 +54,13 @@ export class DurationDropdownComponent extends BaseFormControl {
 
 
   /**
+   * Selected period (AM/PM) from the dropdown.
+   * This is a string representing the period (AM or PM).
+   */
+  selectedPeriod: string = 'AM';
+
+
+  /**
    * Array of hours from 0 to maxHours for the dropdown.
    * This will be generated dynamically based on the maxHours input.
    */
@@ -92,6 +99,12 @@ export class DurationDropdownComponent extends BaseFormControl {
    */
   onMinutesChange(event: Event): void {
     this.selectedMinutes = (event.target as HTMLSelectElement).value;
+    this.updateFormValue();
+  }
+
+  
+    onPeriodChange(event: Event): void {
+    this.selectedPeriod = (event.target as HTMLSelectElement).value;
     this.updateFormValue();
   }
 

@@ -37,7 +37,7 @@ export class TimeDropdownComponent extends BaseFormControl {
    */
   selectedHours: string = '';
 
-  
+
   /**
    * Selected minutes from the dropdown.
    */
@@ -53,7 +53,7 @@ export class TimeDropdownComponent extends BaseFormControl {
   /**
    * Array of hours from 1 to 12 for the dropdown.
    */
-  hours: number[] = Array.from({ length: 24 }, (_, i) => i);
+  hours: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
 
 
   /**
@@ -62,46 +62,60 @@ export class TimeDropdownComponent extends BaseFormControl {
   minutes: number[] = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
 
+   /**
+   * Format hour for display (adds leading zero if needed)
+   */
+  formatHourDisplay(hour: number): string {
+    return hour.toString();
+  }
+
   /**
-   * @param event The change event from the hours dropdown.
-   * Updates the selected hours and calls updateFormValue to propagate changes.
+   * Format minute for display (adds leading zero)
+   */
+  formatMinuteDisplay(minute: number): string {
+    return minute.toString().padStart(2, '0');
+  }
+
+  /**
+   * Handle hour selection change
    */
   onHoursChange(event: Event): void {
     this.selectedHours = (event.target as HTMLSelectElement).value;
     this.updateFormValue();
   }
 
-
   /**
-   * @param event The change event from the minutes dropdown.
-   * Updates the selected minutes and calls updateFormValue to propagate changes.
+   * Handle minute selection change
    */
   onMinutesChange(event: Event): void {
     this.selectedMinutes = (event.target as HTMLSelectElement).value;
     this.updateFormValue();
   }
 
+  /**
+   * Handle AM/PM period change
+   */
+  onPeriodChange(event: Event): void {
+    this.selectedPeriod = (event.target as HTMLSelectElement).value;
+    this.updateFormValue();
+  }
 
   /**
-   * Method to update the value of the control and notify the parent form.
-   * @param formattedTime The formatted time string in 'HH:MM' format.
-   * If the selected hours, minutes, and period are valid,
-   * it formats the time as 'HH:MM' and calls the base class method to update the value.
-   * If any of the selected values are empty, it resets the value to an empty string
-   * and calls the base class method to update the value.
-   * This method is used to ensure that the form control's value is updated correctly
+   * Update the form value and notify parent
    */
   private updateFormValue(): void {
+    // Check if all fields have values (selectedMinutes can be '0' which is falsy)
     if (this.selectedHours && this.selectedMinutes !== '' && this.selectedPeriod) {
-      // Convert to 24-hour format for consistency
       let hour = parseInt(this.selectedHours);
+      
+      // Convert 12-hour to 24-hour format
       if (this.selectedPeriod === 'PM' && hour !== 12) {
         hour += 12;
       } else if (this.selectedPeriod === 'AM' && hour === 12) {
         hour = 0;
       }
       
-      const formattedTime = `${hour.toString().padStart(2, '0')}:${this.selectedMinutes.toString().padStart(2, '0')}`;
+      const formattedTime = `${hour.toString().padStart(2, '0')}:${this.selectedMinutes.padStart(2, '0')}`;
       this.updateValue(formattedTime);
     } else {
       this.updateValue('');
@@ -109,12 +123,7 @@ export class TimeDropdownComponent extends BaseFormControl {
   }
 
   /**
-   * Required implementation from base class.
-   * Writes a value to the control.
-   * @param value The value to write to the control in 'HH:MM' format.
-   * If the value is empty, it resets the selected values to empty strings.
-   * If the value is provided, it parses the hours, minutes, and period,
-   * and updates the selectedHours, selectedMinutes, and selectedPeriod accordingly.
+   * Write value from form to component (ControlValueAccessor implementation)
    */
   writeValue(value: string): void {
     if (value) {
@@ -136,12 +145,11 @@ export class TimeDropdownComponent extends BaseFormControl {
         this.selectedPeriod = 'PM';
       }
       
-      this.selectedMinutes = minuteStr;
+      this.selectedMinutes = minuteStr || '';
     } else {
       this.selectedHours = '';
       this.selectedMinutes = '';
       this.selectedPeriod = '';
     }
   }
-
 }
