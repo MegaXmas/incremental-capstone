@@ -1,20 +1,21 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BaseFormControl } from '../base-form-control';
 
 @Component({
   selector: 'app-date-dropdown',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './date-dropdown.html',
-  styleUrl: './date-dropdown.css',
+  styleUrls: ['./date-dropdown.css', '../form-styles.css'],
   providers: [{
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DateDropdownComponent),
       multi: true}]
 })
 
-export class DateDropdownComponent implements ControlValueAccessor {
+export class DateDropdownComponent extends BaseFormControl {
 
   /**
    * Input properties for the date dropdown component.
@@ -73,76 +74,44 @@ export class DateDropdownComponent implements ControlValueAccessor {
   years: number[] = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
 
   /**
-   * Callbacks for ControlValueAccessor
-   * This is used to propagate changes and to the parent form.
-   * @param value The value to set in the date dropdown.
-   */
-  private onChange = (value: string) => {};
-
-  /**
-   * Callback for when the control is touched
-   * This is used to indicate that the control has been interacted with.
-   */
-  private onTouched = () => {};
-
-
-  /**
-   * Constructor initializes the selected month and year to the current date.
-   */
-  constructor() {
-    const today = new Date();
-    this.selectedMonth = (today.getMonth() + 1).toString();
-    this.selectedYear = today.getFullYear().toString();
-    this.updateDaysForSelectedMonth();
-  }
-
-  /**
-   * @param selectedDay The day selected from the dropdown.
    * @param event Event triggered when the day is changed.
-   * Updates the selected day and calls updateValue to propagate changes.
+   * Updates the selected day and recalculates the days in the selected month.
    */
-  onDayChange(event: Event): void {
+   onDayChange(event: Event): void {
     this.selectedDay = (event.target as HTMLSelectElement).value;
-    this.updateValue();
+    this.updateDaysForSelectedMonth();
+    this.updateFormValue();
   }
 
   /**
-   * @param selectedMonth The month selected from the dropdown.
    * @param event Event triggered when the month is changed.
-   * Updates the selected month, recalculates available days, and calls updateValue.
+   * Updates the selected month, recalculates the days in the selected month, and updates the form value.
    */
   onMonthChange(event: Event): void {
     this.selectedMonth = (event.target as HTMLSelectElement).value;
-    this.updateDaysForSelectedMonth(); // Update available days
-    this.updateValue();
+    this.updateDaysForSelectedMonth();
+    this.updateFormValue();
   }
 
   /**
-   * @param selectedYear The year selected from the dropdown.
    * @param event Event triggered when the year is changed.
-   * Updates the selected year, recalculates available days, and calls updateValue.
+   * Updates the selected year, recalculates the days in the selected month, and updates the form value.
    */
   onYearChange(event: Event): void {
     this.selectedYear = (event.target as HTMLSelectElement).value;
-    this.updateDaysForSelectedMonth(); // Update available days (for leap years)
-    this.updateValue();
+    this.updateDaysForSelectedMonth();
+    this.updateFormValue();
   }
 
   /**
-   * Updates the days array based on the selected month and year.
-   * This method ensures that the dropdown only shows valid days for the selected month/year.
-   * If no month/year is selected, it defaults to showing all days from 1 to 31.
-   * @param selectedMonth The month selected from the dropdown.
-   * @param selectedYear The year selected from the dropdown.
-   * @param daysInMonth The number of days in the selected month/year.
-   * This is calculated using the Date object to ensure correct handling of leap years and month lengths
+   * Function to call when the value changes.
    */
   private updateDaysForSelectedMonth(): void {
     if (this.selectedMonth && this.selectedYear) {
       const daysInMonth = new Date(
         parseInt(this.selectedYear), 
-        parseInt(this.selectedMonth), // JavaScript Date uses 0-11 for months, but our dropdown uses 1-12
-        0 // Day 0 gives us the last day of the previous month
+        parseInt(this.selectedMonth), 
+        0
       ).getDate();
       
       this.days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
@@ -156,36 +125,33 @@ export class DateDropdownComponent implements ControlValueAccessor {
   }
 
   /**
-   * Updates the value of the control and calls the onChange callback.
-   * This method formats the date as YYYY-MM-DD for compatibility with date inputs.
-   * If any of the day, month, or year is not selected, it sets the value to an empty string.
-   * It also calls the onTouched callback to indicate that the control has been interacted with.
-   * @param selectedDay The day selected from the dropdown.
-   * @param selectedMonth The month selected from the dropdown.
-   * @param selectedYear The year selected from the dropdown.
-   * @param formattedDate The formatted date string in YYYY-MM-DD format.
+   * Method to update the value of the control and notify the parent form.
+   * @param newValue The new value to set in the control.
+   * If the selected day, month, and year are valid,
+   * it formats the date as 'YYYY-MM-DD' and calls the base class method to update the value.
+   * If any of the selected values are empty, it resets the value to an empty string
+   * and calls the base class method to update the value.
+   * This method is used to ensure that the form control's value is updated correctly
    */
-  private updateValue(): void {
+  private updateFormValue(): void {
     if (this.selectedDay && this.selectedMonth && this.selectedYear) {
-      // Format as YYYY-MM-DD for compatibility with date inputs
       const formattedDate = `${this.selectedYear}-${this.selectedMonth.padStart(2, '0')}-${this.selectedDay.padStart(2, '0')}`;
-      this.onChange(formattedDate);
+      this.updateValue(formattedDate); // Uses base class method
     } else {
-      this.onChange('');
+      this.updateValue('');
     }
-    this.onTouched();
   }
 
   /**
-   * Writes a value to the date dropdown.
-   * This method is part of the ControlValueAccessor interface and is used to set the initial value of the control.
-   * @param value The value to set in the date dropdown.
-   * @param date The date value in string format (YYYY-MM-DD).
-   * @param selectedDay The day part of the date.
-   * @param selectedMonth The month part of the date.
-   * @param selectedYear The year part of the date.
-   * It parses the date string and sets the selected day, month, and year accordingly.
-   * If the value is empty, it resets the selected day, month, and year to empty strings and resets the days array to show all days from 1 to 31.
+   * Required implementation from base class
+   * Writes a value to the control.
+   * @param value The value to write to the control, expected in 'YYYY-MM-DD' format.
+   * If the value is empty, it resets the selected day, month, and year.
+   * If the value is valid, it extracts the day, month, and year,
+   * updates the selectedDay, selectedMonth, and selectedYear properties,
+   * and updates the days array based on the selected month and year.
+   * If the value is invalid, it resets the selectedDay, selectedMonth, and selectedYear properties
+   * and sets the days array to a default of 31 days.
    */
   writeValue(value: string): void {
     if (value) {
@@ -193,40 +159,12 @@ export class DateDropdownComponent implements ControlValueAccessor {
       this.selectedDay = date.getDate().toString();
       this.selectedMonth = (date.getMonth() + 1).toString();
       this.selectedYear = date.getFullYear().toString();
-      
       this.updateDaysForSelectedMonth();
     } else {
       this.selectedDay = '';
       this.selectedMonth = '';
       this.selectedYear = '';
-      this.days = Array.from({ length: 31 }, (_, i) => i + 1); // Reset to full range
+      this.days = Array.from({ length: 31 }, (_, i) => i + 1);
     }
-  }
-
-  /**
-   * Registers a callback function that should be called when the control's value changes.
-   * This method is part of the ControlValueAccessor interface and is used to propagate changes to the parent form.
-   * @param fn The callback function to register.
-   * @param value The value to set in the date dropdown.
-   */
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
-  }
-
-  /**
-   * Registers a callback function that should be called when the control is touched.
-   * This method is part of the ControlValueAccessor interface and is used to handle touch events.
-   * @param fn The callback function to register.
-   */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the disabled state of the control.
-   * This method is part of the ControlValueAccessor interface and can be used to disable the control if needed.
-   * @param isDisabled A boolean indicating whether the control should be disabled.
-   */
-  setDisabledState(isDisabled: boolean): void {
   }
 }
