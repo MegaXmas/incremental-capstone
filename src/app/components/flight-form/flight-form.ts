@@ -24,7 +24,7 @@ export class FlightFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.flightForm = this.fb.group({
       flightNumber: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
       flightAirline: ['', [Validators.required, Validators.minLength(2)]],
