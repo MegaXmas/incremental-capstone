@@ -13,7 +13,7 @@ import { DateDropdownComponent } from '../shared/date-dropdown/date-dropdown';
   templateUrl: './user-flight-booking.html',
   styleUrls: ['./user-flight-booking.css','../shared/form-styles.css'],
 })
-export class UserFlightBooking {
+export class UserFlightBookingComponent {
   userFlightBookingForm!: FormGroup;
   isInvalid: boolean = false;
 

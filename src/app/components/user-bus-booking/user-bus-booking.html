@@ -4,8 +4,8 @@
             <!-- Header -->
             <div class="card shadow">
                 <div class="card-header bg-warning text-black text-center">
-                    <h3><i class="fas fa-user-plus"></i>✈️ Travel Buddy Train Booking ✈️</h3>
-                    <p class="subtitle">Book your train with Travel Buddy below!</p>
+                    <h3><i class="fas fa-user-plus"></i>✈️ Travel Buddy Bus Booking ✈️</h3>
+                    <p class="subtitle">Book your bus with Travel Buddy below!</p>
                     <!-- Test Client Info Display -->
                     <div class="alert alert-info mt-2 mb-0">
                         <small><strong> Test Mode:</strong> You are logged in as <strong id="testClientName"></strong>
@@ -18,15 +18,15 @@
                     <div id="messageArea"></div>
 
                     <!-- Booking Form -->
-                    <form class="form" [formGroup]="userTrainBookingForm" (ngSubmit)="onSubmit()">
+                    <form class="form" [formGroup]="userBusBookingForm" (ngSubmit)="onSubmit()">
                         <!-- From Location -->
                         <div class="row form-group mb-3">
 
                             <div class="col-md-6">
-                                <label for="trainDepartureStation" class="form-label text-center d-block">Train Station of Departure</label>
+                                <label for="busDepartureStation" class="form-label text-center d-block">Bus Station of Departure</label>
 
-                                <select class="form-select text-center" id="trainDepartureStation" name="trainDepartureStation" required>
-                                    <option value="">-- Select the train station you are departing from --</option>
+                                <select class="form-select text-center" id="busDepartureStation" name="busDepartureStation" required>
+                                    <option value="">-- Select the bus station you are departing from --</option>
 
                                     
                                 </select>
@@ -34,23 +34,23 @@
 
                             <!-- To Location -->
                             <div class="col-md-6">
-                                <label for="trainArrivalStation" class="form-label text-center d-block">Train Station Destination</label>
+                                <label for="busArrivalStation" class="form-label text-center d-block">Bus Station Destination</label>
 
-                                <select class="form-select text-center" id="trainArrivalStation" name="trainArrivalStation" required>
-                                    <option value="">-- Select the train station you will arrive at --</option>
+                                <select class="form-select text-center" id="busArrivalStation" name="busArrivalStation" required>
+                                    <option value="">-- Select the bus station you will arrive at --</option>
 
                                 </select>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="trainDepartureDate" class="form-label text-center d-block">Train Departure Date</label>
+                                <label for="busDepartureDate" class="form-label text-center d-block">Bus Departure Date</label>
                                 <app-date-dropdown
-                                    label="Train Departure Date"
-                                    id="trainDepartureDate"
-                                    formControlName="trainDepartureDate">
+                                    label="Bus Departure Date"
+                                    id="busDepartureDate"
+                                    formControlName="busDepartureDate">
                                 </app-date-dropdown>
 
-                                <select class="form-select text-center" id="trainDepartureDate" name="trainDepartureDate" required>
+                                <select class="form-select text-center" id="busDepartureDate" name="busDepartureDate" required>
                                     <option value="">-- Select your date of departure --</option>
 
                                 </select>
@@ -62,7 +62,7 @@
                             <div class="col-12 text-center">
                                 <!-- Main submit button with Bootstrap styling -->
                                 <button type="submit" class="btn btn-success btn-lg px-5 py-3 me-3" id="bookingButton">
-                                    ✈️  Book Train! ✈️ 
+                                    ✈️  Book Bus! ✈️ 
                                 </button>
 
                                 <!-- Optional: Reset button to clear the form -->
