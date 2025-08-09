@@ -40,3 +40,53 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Backend (Java/Maven)
+travel-buddy-backend/target/
+travel-buddy-backend/.mvn/
+travel-buddy-backend/mvnw
+travel-buddy-backend/mvnw.cmd
+travel-buddy-backend/**/*.jar
+travel-buddy-backend/**/*.war
+travel-buddy-backend/**/*.class
+
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.factorypath
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Environment-dependent path to Maven home directory
+/mavenHomeManager.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+
